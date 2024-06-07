@@ -1,0 +1,65 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   creationTimestamp: null
+#   labels:
+#     app: mysql
+#   name: mysql
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mysql
+#   strategy: {}
+#   template:
+#     metadata:
+#       creationTimestamp: null
+#       labels:
+#         app: mysql
+#     spec:
+#       containers:
+#       - env:
+#         - name: MYSQL_ROOT_PASSWORD
+#           value: redhat
+#         - name: MYSQL_DATABASE
+#           value: wpdb
+#         - name: MYSQL_USER
+#           value: shai
+#         - name: MYSQL_PASSWORD
+#           value: redhat
+#         image: mysql:5.7
+#         name: mysql
+#         resources: {}
+#       dnsPolicy: ClusterFirst
+#       restartPolicy: Always
+# status: {}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: redhat
+            - name: MYSQL_DATABASE
+              value: wpdb
+            - name: MYSQL_USER
+              value: shai
+            - name: MYSQL_PASSWORD
+              value: redhat
+          ports:
+            - containerPort: 3306
